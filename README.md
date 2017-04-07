@@ -1,3 +1,2 @@
-"# course_project" 
-"# course_project" 
-"# course_project" 
+Course project - April 2017
+CS@UCU
