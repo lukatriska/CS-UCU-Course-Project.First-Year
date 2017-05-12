@@ -19,8 +19,8 @@ coors_list, final_data = [], []
 route_data = get_data_from_URL(create_destination_url(point_A, point_B, int(departure_time))) # gets the route from the maps API
 for step in route_data['routes'][0]['legs'][0]['steps']: # creates a list of tuples each containing the end and the
     #  start location of the given route segment that can be included in an API url
-    coors_list.append(((str(step['end_location']['lat']) + ',' + str(step['start_location']['lng'])),
-                       (str(step['start_location']['lat']) + ',' + str(step['start_location']['lng']))))
+    coors_list.append(((str(step['start_location']['lat']) + ',' + str(step['start_location']['lng'])),
+                       (str(step['end_location']['lat']) + ',' + str(step['end_location']['lng']))))
 
 for i in range(len(coors_list)):
     if i != 0:
