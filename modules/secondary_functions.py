@@ -48,6 +48,7 @@ def address_to_coors(address):
     maps_request_url = maps_request_url_base + "&address=" + address
     maps_data = get_data_from_URL(maps_request_url)
     lat = maps_data['results'][0]['geometry']['location']['lat']
+
     lng = maps_data['results'][0]['geometry']['location']['lng']
     coors = '{0},{1}'.format(str(lat), str(lng))
     return coors

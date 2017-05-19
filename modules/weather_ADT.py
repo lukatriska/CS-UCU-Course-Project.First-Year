@@ -8,7 +8,7 @@ class WeatherAPI:
     """
     An object of this class represents a weather forecast for a particular place and in a particular time  
     """
-    DARKSKY_BASE_URL = "https://api.darksky.net/forecast/44975392fb2412c8cafe53735e7e720a/"
+    DARKSKY_BASE_URL = "https://api.darksky.net/forecast/84d1267778a8db79aae37f83c88de3f4/"
     GMAPS_BASE_URL = "https://maps.googleapis.com/maps/api/geocode/json?key=AIzaSyB2p2SUnKETTTjg0Lwo0IdS072Yfzckxds&"
 
     def __init__(self, address, time, currently=1, minutely=1, hourly=1, daily=1, alerts=1, flags=1):
