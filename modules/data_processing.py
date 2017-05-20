@@ -1,45 +1,26 @@
-import json
 from pprint import pprint
-import operator
 
 base = 'C:\\Users\schwajka\Desktop\CS@UCU\coding\COURSE PROJECT\core'
 
-segments = []
-months = [k + 1 for k in range(12)]
+segments, months_data = [], []
+data, summ_dict = {}, {}
+months = [1, 2, 3, 4, 5, 6, 7] # only 7 months because that's all the data I could collect (only 1000 requests\day)
 hours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]
-hour = 2
-month = 1
 
-months_data = []
-data = {}
-
-# data[month] = []
-# d
-
+# Reads the .txt files and puts all the info in them into a data dictionary with dictionaries
 for month in months:
     data[month] = {}
-    if month > 3:
-        break
     for hour in hours:
         data[month][hour] = {}
-        for segment in range(20):
-            # print('{}_{}_data{}.txt'.format(month, hour, segment+1))
-            data[month][hour][segment + 1] = {}
-            with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr\{}_{}_data{}.txt'.format(month, hour, segment+1), 'r') as file:
-                seg_data = file.readlines()
-                # temper, date, summary = seg_data
-                summary = seg_data[-1]
-                # data[month][hour][segment+1]['temperature'] = temper
-                # data[month][hour][segment+1]['date'] = date
-                data[month][hour][segment+1] = summary[:-1]
-pprint(data)
+        for segment in range(1, 21):
+            data[month][hour][segment] = {}
+            with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr\{}_{}_data{}.txt'.format(month, hour, segment), 'r') as file:
+                data[month][hour][segment] = file.readlines()[-1][:-1]
 
-summ_dict =  {}
-
+# Loops through the data dictionary and creates the counters of how may times a certain weather summary appears in the
+# data dictionary
 for month in months:
     summ_dict[month] = {}
-    if month > 3:
-        break
     for hour in hours:
         summ_dict[month][hour] = {}
         for segment in range(1, 21):
@@ -67,251 +48,16 @@ for month in months:
                 if not 'Foggy' in summ_dict[month][hour]:
                     summ_dict[month][hour]['Foggy'] = 1
                 else:
-                    # f = data[1][2]
                     summ_dict[month][hour]['Foggy'] += 1
 
-
-pprint(summ_dict)
-
+# Loops through the sum_dict dictionary, leaving only the most frequent summary of a certain hour
 for month in months:
-    if month > 3:
-        break
     for hour in hours:
-        summ_dict[month][hour] = sorted(summ_dict[month][hour].items(), key=operator.itemgetter(1)).reverse()
+        temp = []
+        for key, value in summ_dict[month][hour].items():
+            temp.append(value)
+        maxi = max(temp)
+        maxi = [k for k, v in summ_dict[month][hour].items() if v == maxi]
+        summ_dict[month][hour] = maxi[0]
 
 pprint(summ_dict)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# pprint(f)
-                    # print(data[].keys())
-                    # f = data[1][2]
-                    # print(f.items())
-                    # for i in f.items():
-                    #     print(i[1]['summary'])
-
-                    # most_clo, overcast, clear, part_clo, rainy, foggy = 0, 0, 0, 0, 0, 0
-                    # for month in range(1, 4):
-                    #     for hour in hours:
-                    #         f = data[month][hour]
-                    #         pprint(f.items())
-                    #         for i in f.items():
-                    #             if i[1]['summary'] == 'Mostly Cloudy\n':
-                    #                 most_clo += 1
-                    #                 # if not 'Mostly Cloudy' in summ_dict:
-                    #                 #     summ_dict[month][hour]['Mostly Cloudy'] = 1
-                    #                 # else:
-                    #                 #     summ_dict[month][hour]['Mostly Cloudy'] += 1
-                    #             elif i[1]['summary'] == 'Clear\n':
-                    #                 clear += 1
-                    #                 # if not 'Clear' in summ_dict[month][hour]:
-                    #                 #     summ_dict[month][hour]['Clear'] = 1
-                    #                 # else:
-                    #                 #     summ_dict[month][hour]['Clear'] += 1
-                    #             elif i[1]['summary'] == 'Overcast\n':
-                    #                 overcast += 1
-                    #             elif i[1]['summary'] == 'Partly Cloudy\n':
-                    #                 part_clo += 1
-                    #             elif i[1]['summary'] == 'Rainy\n':
-                    #                 rainy += 1
-                    #             elif i[1]['summary'] == 'Foggy\n':
-                    #                 foggy += 1
-                    #             # elif i[1]['summary'] == 'Overcast\n':
-                    #             #     overcast += 1
-                    #                 # if not 'Overcast' in summ_dict[month][hour]:
-                    #                 #     summ_dict[month][hour]['Overcast'] = 1
-                    #                 # else:
-                    #                 #     summ_dict[month][hour]['Overcast'] += 1
-                    #
-                    # elif i[1]['summary'] == 'Mostly Cloudy\n':
-                    # elif i[1]['summary'] == 'Mostly Cloudy\n':
-                    # elif i[1]['summary'] == 'Mostly Cloudy\n':
-                    # print(f.items())
-
-                    # print(summ_dict)
-                    # print('most_clo    \t', most_clo)
-                    # print('partly cloudy   ', part_clo)
-                    # print('clear   \t\t', clear)
-                    # print('overcast    \t', overcast)
-                    # print('rainy    \t\t', rainy)
-                    # print('foggy    \t\t', foggy)
-
-                    # if data[month][hour][segment] == 'Mostly Cloudy':
-            #     if not 'Mostly Cloudy' in summ_dict[month][hour][segment]:
-            #         summ_dict[month][hour][segment]['Mostly Cloudy'] = 1
-            #     else:
-            #         summ_dict[month][hour]['Mostly Cloudy'] += 1

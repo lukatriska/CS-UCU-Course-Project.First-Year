@@ -6,7 +6,7 @@ import os.path
 
 
 save_path = "C:\\Users\schwajka\Desktop\CS@UCU\coding\COURSE PROJECT\core\modules"
-months = [k + 1 for k in range(12)]
+months = [4, 5, 6, 7, 8, 9, 10, 11, 12]
 hours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]
 routes = [['lviv', 'kyiv']]
 
