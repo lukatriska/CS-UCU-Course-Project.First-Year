@@ -1,10 +1,11 @@
 from pprint import pprint
+import os
 
 base = 'C:\\Users\schwajka\Desktop\CS@UCU\coding\COURSE PROJECT\core'
 
 segments, months_data = [], []
 data, summ_dict = {}, {}
-months = [1, 2, 3, 4, 5, 6, 7] # only 7 months because that's all the data I could collect (only 1000 requests\day)
+months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]
 hours = [2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22]
 
 # Reads the .txt files and puts all the info in them into a data dictionary with dictionaries
@@ -14,7 +15,8 @@ for month in months:
         data[month][hour] = {}
         for segment in range(1, 21):
             data[month][hour][segment] = {}
-            with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr\{}_{}_data{}.txt'.format(month, hour, segment), 'r') as file:
+            with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr'
+                           '\{}_{}_data{}.txt'.format(month, hour, segment), 'r') as file:
                 data[month][hour][segment] = file.readlines()[-1][:-1]
 
 # Loops through the data dictionary and creates the counters of how may times a certain weather summary appears in the
@@ -49,6 +51,8 @@ for month in months:
                     summ_dict[month][hour]['Foggy'] = 1
                 else:
                     summ_dict[month][hour]['Foggy'] += 1
+            os.remove(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr'
+                           '\{}_{}_data{}.txt'.format(month, hour, segment)) # deletes all unnecessary files
 
 # Loops through the sum_dict dictionary, leaving only the most frequent summary of a certain hour
 for month in months:
@@ -60,4 +64,7 @@ for month in months:
         maxi = [k for k, v in summ_dict[month][hour].items() if v == maxi]
         summ_dict[month][hour] = maxi[0]
 
-pprint(summ_dict)
+#pretty prints the summary into one file
+with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr\\'
+               'from_{}_to_{}_summary.txt'.format(input('from: '), input('to: ')), 'wt') as datafile:
+    pprint(summ_dict, stream=datafile)

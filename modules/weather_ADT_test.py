@@ -7,14 +7,11 @@ point_A = input("Enter the address of the start of your journey: ")
 point_B = input("Enter the address of the end of your journey: ")
 point_A = '+'.join(point_A.split())
 point_B = '+'.join(point_B.split())
-# month = int(input("Enter the departure month: "))
-# day = int(input("Enter the departure day: "))
-# hour = int(input("Enter the departure hour: "))
-# minute = int(input("Enter the departure minute: "))
-month, day, hour, minute = 5, 19, 20, 0
-print("\nplease wait...\n\nthis takes about a minute, depending on your Internet connection\n\nin the meantime, here's a "
-      "joke: \nInterviewer: What's your biggest strength?\nMe: I'm a fast learner.\nInterviewer: What's 11 * 11?\nMe:"
-      " 65.\nInterviewer: Not even close. It's 121.\nMe: It's 121.\n")
+month = int(input("Enter the departure month: "))
+day = int(input("Enter the departure day: "))
+hour = int(input("Enter the departure hour: "))
+minute = int(input("Enter the departure minute: "))
+print("\nplease wait...\n\n")
 departure_time = datetime.datetime(2017, month, day, hour, minute).timestamp()
 coors_list, final_data = [], []
 route_data = get_data_from_URL(create_destination_url(point_A, point_B, int(departure_time)))
@@ -24,9 +21,6 @@ for step in route_data['routes'][0]['legs'][0]['steps']: # creates a list of tup
     #  start location of the given route segment that can be included in an API url
     coors_list.append(((str(step['start_location']['lat']) + ',' + str(step['start_location']['lng'])),
                        (str(step['end_location']['lat']) + ',' + str(step['end_location']['lng']))))
-# for i in range(len(coors_list)):
-
-
 
 for i in range(len(coors_list)):
     if i != 0:
@@ -65,4 +59,3 @@ for i in range(len(final_data)):
             print("Duration: \t\t", final_data[i][j])
         elif j == 6:
             print("Weather summary:", final_data[i][j])
-
