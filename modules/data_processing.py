@@ -15,10 +15,11 @@ for month in months:
         data[month][hour] = {}
         for segment in range(1, 21):
             data[month][hour][segment] = {}
-            with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr'
-                           '\{}_{}_data{}.txt'.format(month, hour, segment), 'r') as file:
-                data[month][hour][segment] = file.readlines()[-1][:-1]
+            with open('{}_{}_data{}.txt'.format(month, hour, segment), 'r') as file:
+                print(file)
+                data[month][hour][segment] = file.readlines()
 
+pprint(data)
 # Loops through the data dictionary and creates the counters of how may times a certain weather summary appears in the
 # data dictionary
 for month in months:
@@ -51,10 +52,13 @@ for month in months:
                     summ_dict[month][hour]['Foggy'] = 1
                 else:
                     summ_dict[month][hour]['Foggy'] += 1
-            os.remove(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr'
-                           '\{}_{}_data{}.txt'.format(month, hour, segment)) # deletes all unnecessary files
-
+            # try:
+            #     os.remove(base+'\modules\collected_data_from_lviv_to_odessa'
+            #                    '\{}_{}_data{}.txt'.format(month, hour, segment)) # deletes all unnecessary files
+            # except:
+            #     pass
 # Loops through the sum_dict dictionary, leaving only the most frequent summary of a certain hour
+# try:
 for month in months:
     for hour in hours:
         temp = []
@@ -63,8 +67,12 @@ for month in months:
         maxi = max(temp)
         maxi = [k for k, v in summ_dict[month][hour].items() if v == maxi]
         summ_dict[month][hour] = maxi[0]
-
-#pretty prints the summary into one file
-with open(base+'\modules\collected_data_from_lviv_to_kyiv_jan-apr\\'
+# except:
+#     pass
+# pretty prints the summary into one file
+# try:
+with open(base+'\modules\collected_data_from_lviv_to_odessa\\'
                'from_{}_to_{}_summary.txt'.format(input('from: '), input('to: ')), 'wt') as datafile:
-    pprint(summ_dict, stream=datafile)
+        pprint(summ_dict, stream=datafile)
+# except:
+#     pass
