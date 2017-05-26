@@ -1,8 +1,8 @@
-from weather_ADT import *
-from secondary_functions import *
 import datetime
 import os.path
 
+from ADT.weather_ADT import *
+from secondary_functions import *
 
 save_path = "C:\\Users\schwajka\Desktop\CS@UCU\coding\COURSE PROJECT\core\modules\collected_data_from_lviv_to_odessa\\"
 months = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]

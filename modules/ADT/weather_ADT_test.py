@@ -1,7 +1,7 @@
-from weather_ADT import *
-from secondary_functions import *
 import datetime
 
+from ADT.weather_ADT import *
+from secondary_functions import *
 
 point_A = input("Enter the address of the start of your journey: ")
 point_B = input("Enter the address of the end of your journey: ")
