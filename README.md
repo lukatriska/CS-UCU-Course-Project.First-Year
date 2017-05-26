@@ -1,6 +1,7 @@
 # Course project
 #### CS@UCU, April 2017
-__UPD: I have exceeded my daily request quota for this API, that's why I'll have to wait some time before I can improve it.__
+[Link to the video](https://drive.google.com/open?id=0B_gnQgqymmRjU0dhZ1M3bkZPeE0)
+_Important_: In the video, when you reach 1:38, go to 3:10 to skip waiting.
 
 The purpose of the data that I have collected is to be able to see the dynamic of change between:
 1. Desired routes that user inputs
